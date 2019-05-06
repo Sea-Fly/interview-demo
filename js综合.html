@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js综合面试</title>
+</head>
+<body>
+<script>
+    function foo() {
+        getName=function () {
+            alert(1);
+        };
+        return this;
+    }
+    foo.getName=function () {
+        alert(2);
+    };
+    foo.prototype.getName=function () {
+        alert(3);
+    };
+    var getName=function () {
+        alert(4);
+    };
+    function getName() {
+        alert(5);
+    }
+
+    /*变量提升和函数提升*/
+/*   function foo() {
+       getName=function () {
+           alert(1);
+       };
+       return this;
+   }
+
+   // var getName;
+/!*   function getName() {
+       alert(5);
+   }*!/
+   foo.getName=function () {
+       alert(2);
+   };
+   foo.prototype.getName=function () {
+       alert(3);
+   };
+   getName=function () {
+       alert(1);
+   };*/
+
+
+
+    //请写出以下输出结果
+    foo.getName();    //2
+    getName();        //4
+    foo().getName();    //(foo()).getName()=> window.getName()  1
+    getName();          //1
+    new foo.getName();  //2 new (foo.getName)()  => new (function () {alert(2))();}
+    new foo().getName();  // 3 (new foo()).getName() => foo.getName()
+    new new foo().getName(); // 3 new ((new foo()).getName)() => new (foo.getName)()  ->new (function () {alert(3))();}
+</script>
+</body>
+</html>
