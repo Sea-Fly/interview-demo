@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端rem适配</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        #box{
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+</body>
+<script type="text/javascript">
+    window.onload=function () {
+        //获取屏幕区域宽度
+        var width=window.document.documentElement.clientWidth;
+        var htmlNode=document.querySelector('html');
+        //设置字体大小
+        htmlNode.style.fontSize=width+'px';
+    }
+
+
+</script>
+</html>
