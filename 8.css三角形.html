@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现css三角形</title>
+    <style>
+        #box{
+            /*原理宽高设置为0*/
+            width: 0;
+            height:0;
+            border:100px solid;
+            border-top-color: green;
+            border-bottom-color: transparent;/*不需要的部分设置为transparent透明颜色*/
+            border-left-color:transparent;
+            border-right-color: transparent;
+        }
+        #box1{
+            /*原理宽高设置为0*/
+            width: 0;
+            height:0;
+            border:100px solid;
+            border-top-color: green;
+            border-bottom-color: transparent;/*transparent为透明颜色*/
+            border-left-color:green;
+            border-right-color: transparent;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div id="box1"></div>
+</body>
+</html>
