@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装驼峰命名法函数</title>
+</head>
+<body>
+<script>
+    //已知在字符串foo='get-element-by-id'，写一个function将其转化成驼峰表示法"getElementById"
+    function toString(foo) {
+        // var foo='get-element-by-id';
+        //将字符串拆分成数组
+        var arr = foo.split('-');
+        for(var i=1;i<arr.length;i++){
+            arr[i]=arr[i].charAt(0).toUpperCase()+arr[i].substr(1,arr[i].length-1);
+        }
+        //将字符数组合成字符串
+        return arr.join('');
+
+    }
+    console.log(toString('get-element-by-id'));
+</script>
+</body>
+</html>
