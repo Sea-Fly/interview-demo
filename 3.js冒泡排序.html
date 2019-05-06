@@ -7,11 +7,14 @@
 <body>
 <script>
     var arr=[66,10,3,5,1];
+    //轮数
     for(var i=0;i<arr.length;i++){
+        //循环比较次数
         for(var j=0;j<arr.length-1-i;j++){
+            //判断前一个数大于后一个数时进行交换
             if (arr[j]>arr[j+1]){
-                var temp;
-                temp=arr[j];
+                //借助第三方变量交换两个变量的值
+                var temp=arr[j];
                 arr[j]=arr[j+1];
                 arr[j+1]=temp;
             }
