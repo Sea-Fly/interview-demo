@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js闭包</title>
+</head>
+<body>
+<script>
+    /*
+    理解：什么是闭包？
+      1. 密闭的容器，类似于set，map容器，存储数据的
+      2. 闭包是一个对象，存放数据的格式：  key:value
+      概念：闭包是对局部变量保存，以便于后续的人去用你的局部变量！
+      其实保存的方法就是：把整个函数封装在一个对象里面，这个对象就是object，
+      而对象可以帮你留住这个东西。
+    形成条件：
+      1.函数嵌套
+      2.内部函数引用外部函数的局部变量
+
+    闭包的优点：
+      延长外部函数局部变量的生命周期
+    闭包的缺点：
+      容易造成内存泄漏
+
+    注意点：
+      1.合理的使用闭包
+      2.用完的闭包要及时清除（销毁）
+    * */
+
+/*    function fun() {
+        var count=1;
+        function fun2() {
+            console.log(count);
+        }
+        fun2();
+    }
+    fun();*/
+
+    //简单闭包面试题
+/*    function fun() {
+        var count=1;
+        return function() {
+            count++;
+            console.log(count);
+        }
+    }
+    var fun2=fun();
+    fun2();  //2
+    fun2();  //3*/
+
+    //复杂闭包面试题
+    function fun(n,o){
+        //var n=0,o;
+        console.log(o);
+        return {
+            fun:function (m) {
+                //var m=1;
+                return fun(m,n);
+            }
+        }
+    }
+
+    var a = fun(0);
+    a.fun(1);
+    a.fun(2);
+    a.fun(3);
+    //输出结果  ：undefined 0 0 0
+
+    var b=fun(0).fun(1).fun(2).fun(3);  //输出结果：undefined  0 1 2
+
+    var c=fun(0).fun(1);
+    c.fun(2);
+    c.fun(3);
+    // 输出结果：undefined 0 1 1
+</script>
+</body>
+</html>
