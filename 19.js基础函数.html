@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js基础函数</title>
+    <style>
+        span{
+            display: inline-block;
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+        js的数据类型有哪些呢？
+          - String 字符串
+          - Number 数值
+          - Boolean 布尔值
+          - Null 空值
+          - Undefined 未定义（也就是定义的变量未初始化）
+             - 以上五种是基本数据类型
+
+          - Object 对象
+    * */
+
+
+/*编写一个函数输出正三角形*/
+    for(var i=0;i<5;i++){  //行数（高）
+        for(var j=0;j<i+1;j++){   //列数（宽）
+            document.write("*&nbsp; &nbsp;");
+        }
+        document.write("<br/>");
+    }
+
+/*打印输出九九乘法表*/
+    for(var i=1;i<=9;i++){
+        for(var j=1;j<i+1;j++){
+            var sub=i*j;
+            document.write("<span>"+j+"*"+i+"="+sub+"</span>");
+        }
+        document.write("<br/><br/>");
+    }
+
+/*
+打印输出1--100的所有质数
+  *  */
+/*在程序执行之前，开启计时器，console.time("计时器的名字");结束计时器：console.timeEnd("计时器的名字")*/
+//Math.sqrt()  开方，用于对循环的质数进行优化
+console.time("test"); //测试性能开始
+for(var i=2;i<=10000;i++){
+    var flag=true;
+    for (var j=2;j<=Math.sqrt(i);j++){
+        if (i%j==0){
+            flag=false;
+             break;  //加上break会提升性能  185ms,不加break是447ms
+        }
+    }
+    if (flag){
+        document.write(i+"&nbsp;&nbsp;")
+    }
+}
+console.timeEnd("test"); //测试性能结束
+
+
+/*
+    注意点：可以为循环语句创建一个label，来标识当前的循环，
+    label:循环语句
+    使用break语句时，可以在break后跟着一个label,
+    这样break将会结束指定的循环，而不是最近的
+* */
+    outer:
+    for(var i=0;i<5;i++){
+        console.log("外循环" + i);
+        for(var j=0;j<5;j++){
+            break outer; //直接终止外层循环
+            console.log("内循环" + i);
+        }
+    }
+    /*
+    continue关键字可以用来跳过当次循环(也就是不执行continue以下的语句)
+    * */
+    for(var i=0;i<5;i++){
+        if(i==2){
+            continue;
+        }
+        console.log(i);
+    }
+</script>
+</body>
+</html>

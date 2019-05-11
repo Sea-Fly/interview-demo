@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象的基本属性</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+   * 对象的分类
+   *   1.内建对象
+   *       - 由ES标准中定义的对象，在任何的ES实现中都可以使用
+   *       - 比如：Math  String Number Boolean Function Object...
+   *
+   *   2.宿主对象
+   *       - 由JS的运行环境提供的对象，目前来讲主要指由浏览器提供的对象
+   *       - 比如BOM（浏览器对象模型）、DOM（文档对象模型）。
+   *
+   *   3.自定义对象
+   *       - 由开发人员自己创建的对象
+   *
+   * */
+
+    //创建对象
+    /*
+        使用new关键字调用的函数，是构造函数constructor
+        构造函数是专门用来创建对象的函数
+        使用typeof检查一个对象时，会返回object
+    * */
+    var obj = new Object();
+    //向对象中添加属性
+
+    obj.name="孙悟空";
+    obj.gender="男";
+    obj.age=18;
+    console.log(obj);
+
+    /*
+    * 在对象中保存的值称为属性
+    * 向对象添加属性
+    *   语法：对象.属性名=属性值;
+    *
+    *   读取对象中没有的属性，不会报错而是返回undefined
+    * */
+    //console.log(obj.hello);  //undefined
+
+    /*
+    * 删除对象属性
+    *   语法：delete 对象.属性名
+    * */
+    delete obj.name;
+    console.log(obj.name);  //undefined
+
+    /*
+    * 向对象中添加属性(属性值可以是任意值-->可以是基本数据类型，也可以是对象)
+    * 属性名：
+    *   - 对象的属性名不强制要求遵守标识符的规范
+    *           什么乱七八糟的名字都可以使用
+    *   - 但是我们使用时还是按照标识符的规范去做
+    * */
+
+    /*
+    * 如果要使用特殊的属性名，不能采用.的方式来操作
+    *   需要使用另外一种方式：
+    *       语法：对象["属性名"]=属性值
+    *   读取的时候也需要采用这种方式
+    *
+    * 使用[]这种形式去操作属性，更加的灵活，
+    *   在[]中可以直接传递一个变量，这样变量值是多少就会读取哪个属性值
+    *
+    * */
+
+    obj["123"]=789;
+    obj["nihao"]="你好";
+    var n="nihao";
+    console.log(obj[n]); //789
+
+    /*
+    *  in 运算符
+    *  - 通过该运算符可以检查一个对象中是否含有指定的属性
+    *          如果有则返回true ，没有返回false
+    *  - 语法：
+    *       "属性名" in 对象
+    *
+    * */
+    console.log("123" in obj); //true
+    console.log("test" in obj);  //false
+
+    /*
+    * 基本数据类型
+    *   String Number Boolean Null undefined
+    * 引用数据类型
+    *   Object
+    *
+    *   JS中的变量都是保存到栈内存中的
+    *       基本数据类型的值直接在栈内存中存储
+    *       值与值之间是独立存在，修改一个变量不会影响其他的变量
+    *
+    *       对象是保存在堆内存中，每创建一个新的对象，就会在堆内存中开辟出一个新的空间
+    *       而变量保存的是对象的内存地址（对象的引用），如果两个对象保存的
+    *       是同一个对象的引用，当一个通过变量修改属性时，另一个也会受到影响。
+    */
+
+
+    /*
+    当比较两个基本数据类型的值时，就是比较值。
+    当比较两个引用类型时，它是比较的对象的内存地址。
+        如果两个对象一模一样的，但是地址不同，它也会返回false
+    * */
+    var obj3=new Object();
+    var obj4=new Object();
+     obj3.name='sha';
+     obj4.name='sha';
+    console.log(obj3 == obj4);  //false
+</script>
+</body>
+</html>

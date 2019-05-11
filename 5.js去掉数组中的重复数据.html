@@ -30,6 +30,48 @@
         }
     }
     console.log(t);
+
+
+    //方式二  Set结构去重.
+    let unique=[...new Set(arr)];
+    console.log(unique);
+
+
+    /*
+    * 方式三  遍历，将数组的值添加到一个对象的属性名里，并给属性赋值，
+    * 对象不能添加相同属性名，以这个为依据可以实现数组去重，然后用Object.keys(对象)返回这个
+    * 对象可枚举属性组成的数组，这个数组就是去重后的数组。
+    * */
+
+    let a=['1','2','3',1,NaN,NaN,undefined,undefined,null,null,'a','a','b'];
+    const unique1 = arr =>{
+        var obj = {};
+        arr.forEach(value=>{
+            obj[value]=0;//这步先添加一个属性，并赋值，如果不去赋值，则属性添加不上去。
+        });
+        return Object.keys(obj);//Object.keys(对象)，返回这个对象可枚举属性组成的字符串数组，这个数据就是去重后的数组
+    };
+    console.log(unique1(a));//["1", "2", "3", "NaN", "undefined", "null", "a", "b"]
+
+
+    /*
+    方式四：遍历，将值添加到新数组，用indexOf()判断值是否存在，已存在就不添加，达到去重效果。
+    * */
+    let b=['1','2','3',1,NaN,NaN,undefined,undefined,null,null,'a','a','b'];
+    const unique2 = arr =>{
+        var newA = [];
+        arr.forEach(key=>{
+            if(newA.indexOf(key)<0){
+                newA.push(key);
+            }
+        });
+        return newA;
+    };
+    console.log(unique2(b));//["1", "2", "3", 1, NaN, NaN, undefined, null, "a", "b"]
+    //ps:这个方法不能分辨NaN，会出现两个NaN。
+
+
+
 </script>
 </body>
 </html>
