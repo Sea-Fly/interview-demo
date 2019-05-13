@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2019面试</title>
+</head>
+<body>
+<!--
+//试题1
+DOM事件流包括哪三个阶段？
+  - 1、事件捕获阶段
+
+  - 2、处于目标阶段
+
+  - 3、事件冒泡阶段
+-->
+
+<script>
+    //试题2
+    var func=(function (a) {
+        console.log(this);
+        this.a=a;
+        return function (a) {
+            console.log(a);
+            a+=this.a;
+            return a;
+        }
+    })(function (a,b) {
+        return a;
+    }(3,5));
+    console.log(func(7));  // 10
+
+    //试题3
+    const {a='a',b,c:ccc}={a:'aa',b:'bb',c:'cc'};
+    //console.log(a + b + c);//运行出现错误   c变量解构赋值不成功
+</script>
+
+<!--试题4
+    写出以字母开头，可以包含字母或数字的4-10位的用户密码的正则表达式
+        ^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{4,10}$
+
+        分开来注释一下：
+            ^ 匹配一行的开头位置
+            (?![0-9]+$) 预测该位置后面不全是数字
+            (?![a-zA-Z]+$) 预测该位置后面不全是字母
+            [0-9A-Za-z] {4,10} 由4-10位数字或这字母组成
+            $ 匹配行结尾位置
+-->
+
+<script>
+    /*
+    试题5：写出以下代码运行结果
+    * */
+    setTimeout(function () {
+        console.log(1);
+    },0);
+    new Promise(function executor(resolve) {
+        console.log(2);
+        for(var i=0;i<10000;i++){
+             i==9999&&resolve();
+        }
+        console.log(3);
+    }).then(function () {
+        console.log(4);
+    });
+    console.log(5);
+   //总体输出 2 3 5 4 1
+
+
+</script>
+</body>
+</html>
