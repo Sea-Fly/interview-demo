@@ -441,10 +441,10 @@
     *       自身中如果有，则直接使用，
     *       如果没有则去原型对象中寻找，如果原型对象中有，则使用，
     *       如果原型对象没有，则去原型的原型中寻找，直到找到Object对象的
-    *       原型，Object对象的原型没有原型，如果Object中依然没有找到，则返回undefined
+    *       原型，Object对象的原型没有原型，如果Object原型中依然没有找到，则返回undefined
     *
     * */
-    console.log(mc.__proto__.__proto__.hasOwnProperty("hasOwnProperty"));
+    console.log(mc.__proto__.__proto__.hasOwnProperty("hasOwnProperty")); //true
 </script>
 </body>
 </html>
