@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贝尔网络面试</title>
+</head>
+<body>
+<script type="text/javascript">
+    function User() {
+        this.name="Vicfeel";
+        var age=23;
+        this.sayAge=function () {
+            alert("my age is "+age);
+        };
+    }
+    var user=new User();
+    //alert(user.name);
+    alert(user.age);
+    // user.sayAge();
+
+
+    /*挖坑程序*/
+    const {a1,b1}={a1:'这是第一个',b1:'这是第二个'};
+    console.log(a1);
+   //var a1='这是第三个';   这里会报错，会出现重复定义（has already been declared）
+   // console.log(a1);
+
+</script>
+</body>
+</html>
