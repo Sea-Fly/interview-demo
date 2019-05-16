@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片切换</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .outer{
+            width: 700px;
+            margin: 10px auto;
+            text-align: center;
+            background-color: #39ff23;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="outer">
+    <p id="title"></p>
+    <img src="imgs/1.png"/>
+    <button id="prev">上一页</button>
+    <button id="next">下一页</button>
+</div>
+<script>
+window.onload=function () {
+    var prev=document.getElementById("prev");
+    var next=document.getElementById("next");
+    var changeImg=document.getElementsByTagName("img")[0];
+    var arrImg=["imgs/1.png","imgs/2.png","imgs/3.png","imgs/4.png","imgs/5.png",];
+    var title=document.getElementById("title");
+    var index=0;
+    title.innerHTML="一共"+arrImg.length+"张图片，当前第"+(index+1)+"张";
+    //上一页
+    prev.onclick=function(){
+        index--;
+        if(index<0){
+            index=arrImg.length-1;
+        }
+        changeImg.src=arrImg[index];
+        title.innerHTML="一共"+arrImg.length+"张图片，当前第"+(index+1)+"张"
+    };
+    //下一页
+    next.onclick=function(){
+        index++;
+        if (index>arrImg.length-1){
+            index=0;
+        }
+        changeImg.src=arrImg[index];
+        title.innerHTML="一共"+arrImg.length+"张图片，当前第"+(index+1)+"张"
+    }
+}
+</script>
+</body>
+</html>
