@@ -1,0 +1,46 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    text-align: center;
+}
+#city{
+    margin-bottom: 10px;
+    font-size: 0;
+}
+#city li{
+    font-size: 14px;
+    list-style: none;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #72ac76;
+    color:#fff
+}
+#total{
+    vertical-align:top;
+    width: 400px;
+    text-align: left;
+    border: 3px solid rgba(0, 0, 0, 0.4);
+
+}
+#inner{
+    padding-left: 10px;
+}
+#inner p{
+    margin: 20px 0;
+}
+#total,#btnList{
+    display: inline-block;
+    margin-top: 10px;
+}
+#btnList button{
+    width: 300px;
+    margin-bottom: 10px;
+}
+#btnList{
+    padding: 0 20px;
+}
