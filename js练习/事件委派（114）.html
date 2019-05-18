@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件委派</title>
+    <script>
+        window.onload=function(){
+            var btn=document.getElementById("btn");
+            var ul=document.getElementById("ul");
+            btn.onclick=function(){
+                var li=document.createElement("li");
+                li.innerHTML="<a href='javascript:;' class='link'>我是新的超链接</a>";
+                ul.appendChild(li);
+            };
+          /*  var a=document.getElementsByTagName("a");
+            for(var i=0;i<a.length;i++){
+                a[i].onclick=function () {
+                    alert("我是超链接");
+                }
+            }*/
+          /*
+          * 基于以上多个事件的绑定，不利于性能，我们希望，只绑定一次事件，即可应用到多个的元素上，即使元素是后面
+          * 添加的，我们可以尝试将其绑定给元素的共同的祖先元素
+          *
+          * 事件委派
+          *     - 指将事件统一绑定给元素的共同的祖先元素，这样当后代元素上的事件触发时，会一直冒泡到祖先元素
+          *         从而通过祖先元素的响应函数来处理事件。
+          *     - 事件委派是利用了冒泡，通过委派可以减少事件绑定的次数，提高程序的性能
+          * */
+          ul.onclick=function (event) {
+                event=event || window.event;
+              //event.target.className的缺点是a链接里面不能有两个类名，否则以下判断无效。
+              //事件触发的对象是我们期望的元素，则执行否则不执行。
+              if (event.target.className=="link") {
+                  /*target
+                       - event中的target表示的触发事件的对象
+                  * */
+                  console.log("我是ul的点击响应事件");
+              }
+          }
+        }
+    </script>
+</head>
+<body>
+<button id="btn">添加超链接</button>
+<ul id="ul">
+    <li><a href="javascript:;" class="link">我是超链接一</a></li>
+    <li><a href="javascript:;" class="link">我是超链接二</a></li>
+    <li><a href="javascript:;" class="link">我是超链接三</a></li>
+</ul>
+</body>
+</html>
