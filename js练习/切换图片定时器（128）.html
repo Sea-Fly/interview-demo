@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片切换定时器</title>
+    <script>
+        window.onload=function(){
+            var start = document.getElementById("start");
+            var end= document.getElementById("end");
+            var img=document.getElementsByTagName("img")[0];
+            var timer;
+            var index=0;
+            var imgArr=["图片切换/imgs/1.png","图片切换/imgs/2.png","图片切换/imgs/3.png","图片切换/imgs/4.png","图片切换/imgs/5.png",];
+            start.onclick=function(){
+                /*
+                * 目前，我们每点击一次按钮，就会开启一个定时器，
+                *   点击多次就会开启多个定时器，这就导致图片的切换速度过快，
+                *   并且我们只能关闭最后一次开启的定时器。
+                * */
+                //开启一个定时器之前，把上一个定时器关闭
+                clearInterval(timer);
+                timer=setInterval(function(){
+                    index++;
+                    //判断索引是否超过最大索引
+                   /* if(index>=imgArr.length){
+                        index=0;
+                    }*/
+                   index %=imgArr.length;
+                    img.src=imgArr[index];
+                },1000)
+            };
+            end.onclick=function(){
+                clearInterval(timer);
+            }
+        }
+    </script>
+</head>
+<body>
+<img src="图片切换/imgs/1.png"/>
+<br/>
+<br/>
+<button id="start">开始</button>
+<button id="end">暂停</button>
+</body>
+</html>
