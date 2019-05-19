@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: #ff984f;
+            position: absolute;
+        }
+        #box2{
+            width: 100px;
+            height: 100px;
+            background-color: #35f8ff;
+            position:absolute;
+            left: 200px;
+            top: 200px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            /*
+            * 拖拽box元素
+            *   - 拖拽的流程
+            *       1.当鼠标在被拖拽元素上按下时，开始拖拽onmousedown
+            *       2.当鼠标移动时被拖拽元素跟鼠标移动onmousemove
+            *       3.当鼠标松开时，被拖拽元素固定在当前位置onmouseup
+            * */
+            var box=document.getElementById("box");
+            var box2=document.getElementById("box2");
+            drag(box);//封装的拖拽函数
+            drag(box2);
+            drag(word);
+            //当鼠标在被拖拽元素上按下时，开始拖拽  onmousedown
+            /*box.onmousedown=function(event){
+                //设置box捕获所有鼠标按下的事件
+                /!*
+                * setCapture()
+                *   - 一个元素调用此方法后，这个元素将会把下一次所有的鼠标按下相关的事件捕获到自身上
+                *   - 只有IE支持，但是在火狐中调用时不会报错
+                *       而如果使用chrome调用，会报错。
+                * *!/
+                box.setCapture && box.setCapture();
+                event = event || window.event;
+                var ot=event.clientY-box.offsetTop;
+                var ol=event.clientX-box.offsetLeft;
+                //当鼠标移动时跟随鼠标移动onmousemove
+                document.onmousemove=function(event){
+                    event=event || window.event;
+                    //获取鼠标的坐标
+                    var x=event.clientX;
+                    var y=event.clientY;
+                    //修改box的位置
+                    box.style.left=x-ol+"px";
+                    box.style.top=y-ot+"px";
+                };
+                //当鼠标松开时，被拖拽元素固定在当前位置  onmouseup
+                document.onmouseup=function(){
+                    //取消document.onmousemove事件
+                    document.onmousemove=null;//当鼠标松开时，被拖拽元素固定在当前位置onmouseup
+                    //取消document.onmouseup事件
+                    document.onmouseup=null;
+                    //当鼠标松开时，取消对事件的捕获
+                    box.releaseCapture && box.releaseCapture();
+                };
+                /!*
+                * 当我们拖拽一个网页中的内容时，浏览器会默认去搜索引擎中搜索内容，
+                *   此时会导致拖拽功能的异常，这个是浏览器提供的默认行为。
+                *   如果不希望发生这个行为，则可以通过return false来取消默认行为
+                *
+                * 但是这招对IE8不起作用。
+                * *!/
+                return false
+            };*/
+
+            /*
+            * 提取一个专门用来拖拽的函数
+            * 参数：
+            *   开启拖拽元素
+            * */
+            function drag(obj){
+                //当鼠标在被拖拽元素上按下时，开始拖拽  onmousedown
+                obj.onmousedown=function(event){
+                    //设置box捕获所有鼠标按下的事件
+                    /*
+                    * setCapture()
+                    *   - 一个元素调用此方法后，这个元素将会把下一次所有的鼠标按下相关的事件捕获到自身上
+                    *   - 只有IE支持，但是在火狐中调用时不会报错
+                    *       而如果使用chrome调用，会报错。
+                    * */
+                    obj.setCapture && obj.setCapture();
+                    event = event || window.event;
+                    var ot=event.clientY-obj.offsetTop;
+                    var ol=event.clientX-obj.offsetLeft;
+                    //当鼠标移动时跟随鼠标移动onmousemove
+                    document.onmousemove=function(event){
+                        event=event || window.event;
+                        //获取鼠标的坐标
+                        var x=event.clientX;
+                        var y=event.clientY;
+                        //修改box的位置
+                        obj.style.left=x-ol+"px";
+                        obj.style.top=y-ot+"px";
+                    };
+                    //当鼠标松开时，被拖拽元素固定在当前位置  onmouseup
+                    document.onmouseup=function(){
+                        //取消document.onmousemove事件
+                        document.onmousemove=null;//当鼠标松开时，被拖拽元素固定在当前位置onmouseup
+                        //取消document.onmouseup事件
+                        document.onmouseup=null;
+                        //当鼠标松开时，取消对事件的捕获
+                        obj.releaseCapture && obj.releaseCapture();
+                    };
+                    /*
+                    * 当我们拖拽一个网页中的内容时，浏览器会默认去搜索引擎中搜索内容，
+                    *   此时会导致拖拽功能的异常，这个是浏览器提供的默认行为。
+                    *   如果不希望发生这个行为，则可以通过return false来取消默认行为
+                    *
+                    * 但是这招对IE8不起作用。
+                    * */
+                    return false
+                }
+            }
+
+
+        };
+    </script>
+</head>
+<body>
+<p id="word" style="position:absolute;top: 150px;left: 150px;">我是文字</p>
+<div id="box"></div>
+<div id="box2"></div>
+</body>
+</html>
