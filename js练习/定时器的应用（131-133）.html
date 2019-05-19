@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器的应用</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position:absolute;
+            left: 0;
+            /*top: 0;*/
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var timer;
+            var box=document.getElementById("box");
+            var btn01=document.getElementById("btn01");
+            var btn02=document.getElementById("btn02");
+            btn01.onclick=function(){
+      /*          timer=setInterval(function(){
+                    //获取box1的原来的left值
+                    var oldValue=parseInt(getStyle(box,"left"));
+
+                    //在旧值的基础上增加
+                    var newValue = oldValue + 10;
+
+                    //判断newValue是否大于800
+                    if(newValue > 800){
+                        newValue = 800;
+                    }
+                    //将新值设置给box
+                    box.style.left = newValue + "px";
+
+                    //当元素移动到800px时，使其停止执行动画。
+                    if(newValue ==800){
+                        //达到目标，关闭定时器
+                        clearInterval(timer);
+                    }
+                },30);*/
+                //优化
+                move(box,"left",800,10);
+            };
+            btn02.onclick=function(){
+                move(box,"width",0,10);
+            }
+        };
+        // var timer;
+        /*
+            尝试创建一个可以执行简单动画的函数
+            参数：
+                obj：要执行动画的对象
+                attr：要执行动画的样式，比如left top width height
+                target：执行动画的目标位置
+                speed：移动的速度（正数向右移动，负数向左移动）
+                callback：回调函数，这个函数将会在动画执行完毕以后执行。
+        * */
+        function move(obj,attr,target,speed,callback){
+            //获取速度的正负值
+            /*  如果从0向800移动，则speed为正
+                如果从800向0移动，则speed为负
+            * */
+            var current=parseInt(getStyle(obj,attr));
+            if(current > target){
+                speed=-speed;
+            }
+            //关闭上一个计时器
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function(){
+                //获取box1的原来的left值
+                var oldValue=parseInt(getStyle(obj,attr));
+
+                //在旧值的基础上增加
+                var newValue = oldValue + speed;
+
+                //判断newValue是否大于800
+                if(newValue > target && speed>0 ||  newValue < target && speed < 0){
+                    newValue = target;
+                }
+                //将新值设置给box
+                obj.style[attr] = newValue + "px";
+
+                //当元素移动到target时，使其停止执行动画。
+                if(newValue ==target){
+                    //达到目标，关闭定时器
+                    clearInterval(obj.timer);
+                    //函数执行完毕，调用回调函数
+                    callback && callback();
+                }
+            },30);
+        }
+        //获取样式封装的函数
+        function getStyle(obj,name) {
+            if(window.getComputedStyle){
+                //正常浏览器可以用
+                return getComputedStyle(obj,null)[name];
+            }
+            else{
+                //IE8的方式
+                return obj.currentStyle[name];
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+<button id="btn01">点击后向左移动</button>
+<button id="btn02">点击后向右移动</button>
+<br/>   <br/>
+<div id="box">
+
+</div>
+</html>

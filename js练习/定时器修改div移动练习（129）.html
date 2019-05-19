@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器修改div移动</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: #acff3c;
+            position:absolute;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var box=document.getElementById("box");
+            var keyC=0;
+            //定义一个变量来表示移动的速度
+            var speed= 10;
+            //box.offsetLeft 当前元素相对于其定位父元素的水平偏移量
+            //box.offsetTop 当前元素相对于其定位父元素的垂直偏移量
+            setInterval(function(){
+                switch(keyC){
+                    case 37 :
+                        box.style.left=box.offsetLeft-speed+"px";
+                        break;
+                    case 38 :
+                        box.style.top=box.offsetTop-speed+"px";
+                        break;
+                    case 39 :
+                        box.style.left=box.offsetLeft+speed+"px";
+                        break;
+                    case 40 :
+                        box.style.top=box.offsetTop+speed+"px";
+                        break;
+                }
+            },30);
+
+            document.onkeydown=function(event){
+                event=event || window.event;
+                // console.log(event.keyCode);
+                //当用户按住ctrl以后，速度加快。
+                if(event.ctrlKey){
+                    speed= 100;
+                }else{
+                    speed= 10;
+                }
+                keyC=event.keyCode;  //获取键盘的Unicode编码
+            };
+            document.onkeyup=function(){
+                keyC=0;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>

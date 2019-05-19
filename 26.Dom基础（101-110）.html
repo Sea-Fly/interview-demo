@@ -147,7 +147,7 @@
         function getStyle(obj,name) {
             if(window.getComputedStyle){
                 //正常浏览器可以用
-                return getComputedStyle(obj,null).width;
+                return getComputedStyle(obj,null)[name];
             }
             else{
                 //IE8的方式
