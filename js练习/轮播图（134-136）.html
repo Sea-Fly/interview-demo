@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #outer{
+            width: 715px;
+            height: 465px;
+            background-color: greenyellow;
+            padding: 10px 0;
+            margin: 50px auto;
+            position:relative;
+            overflow:hidden;
+        }
+        #imgList{
+            position:absolute;
+            list-style: none;
+            /*width: 3575px;*/
+            height: 100%;
+            /*设置偏移量
+                每向左移动 715px，就会显示到下一张图片
+            */
+            left: 0;
+        }
+        #imgList li{
+            float: left;
+            margin: 0 10px;
+
+        }
+        /*设置导航按钮*/
+        #navDiv{
+            position:absolute;
+            bottom:15px;
+            margin: 0 auto;
+        }
+        #navDiv a{
+            float: left;
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            margin: 0 5px;
+            opacity:0.5;
+            /*兼容IE8透明色*/
+            filter:alpha(opacity=50);
+        }
+        #navDiv a:hover{
+            background-color: black;
+        }
+    </style>
+    <script src="tools.js"></script> <!--引入动画工具类-->
+    <script>
+        window.onload=function(){
+            //设置ul的宽度
+            var imgList=document.getElementById("imgList");
+            var imgArr=document.getElementsByTagName("img");
+            imgList.style.width=715*imgArr.length+"px";
+
+            /*设置导航按钮居中
+            获取navDiv
+            * */
+            var navDiv=document.getElementById("navDiv");
+            var outer=document.getElementById("outer");
+            navDiv.style.left=(outer.offsetWidth-navDiv.offsetWidth)/2+"px";
+
+            //默认显示图片的索引
+            var index=0;
+            //获取所有的a
+            var allA=document.getElementsByTagName("a");
+            //设置默认选中的效果
+            allA[index].style.backgroundColor="black";
+            //为a标签绑定点击事件
+            for(var i=0;i<allA.length;i++){
+                allA[i].num=i;
+                allA[i].onclick=function(){
+                    //关闭自动切换定时器
+                    clearInterval(timer);
+                    // imgList.style.left=-715*this.num+"px";
+                    // allA[this.num].style.backgroundColor="black";
+                    //获取点击超链接的索引，并将其设置为index
+                    index=this.num;
+                    //设置选中的a
+                    setA();
+                    move(imgList,"left",-715*index,20,function () {
+                        //动画执行完毕，开启自动切换
+                        autoChange();
+                    });
+
+                };
+            }
+            //开启自动切换图片
+            autoChange();
+            //创建一个方法用来设置选中的a
+            function setA(){
+                //判断当前索引是否是最后一张图片
+                if(index>=imgArr.length-1){
+                    /*则将index设置为0*/
+                    index=0;
+                    //通过Css将最后一张切换成第一张
+                    imgList.style.left=0;
+                }
+                //遍历所有a，并将它们的背景颜色设置为红色
+                for(var i=0;i<allA.length;i++){
+                    //这里设置为空是为了让其出现hover效果
+                    allA[i].style.backgroundColor="";
+                }
+                //将选中的a设置为黑色
+                allA[index].style.backgroundColor="black";
+            }
+
+            //定义自动切换定时器标识
+            var timer;
+            //自动播放图片
+            function autoChange(){
+                timer=setInterval(function(){
+                    index++;
+                    index%=imgArr.length;
+                    //执行动画切换图片
+                    move(imgList,"left",-715*index,50,function () {
+                        setA();
+                    });
+                },3000)
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="outer">
+    <ul id="imgList">
+        <li><img src="图片切换/imgs/1.png" alt="..." /></li>
+        <li><img src="图片切换/imgs/2.png" alt="..." /></li>
+        <li><img src="图片切换/imgs/3.png" alt="..." /></li>
+        <li><img src="图片切换/imgs/4.png" alt="..." /></li>
+        <li><img src="图片切换/imgs/5.png" alt="..." /></li>
+        <li><img src="图片切换/imgs/1.png" alt="..." /></li>
+    </ul>
+    <!--创建导航按钮-->
+    <div id="navDiv">
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+    </div>
+</div>
+</body>
+</html>

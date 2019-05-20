@@ -12,13 +12,30 @@
             left: 0;
             /*top: 0;*/
         }
+        #box2{
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            position:absolute;
+            left: 0;
+            top: 200px;
+        }
+        #border{
+            height: 800px;
+            width: 0;
+            border-left: 3px solid #27ff32;
+            position:absolute;
+            top: 0;
+            left: 800px;
+        }
     </style>
     <script>
         window.onload=function(){
-            var timer;
+            // var timer;
             var box=document.getElementById("box");
             var btn01=document.getElementById("btn01");
             var btn02=document.getElementById("btn02");
+            var btn03=document.getElementById("btn03");
             btn01.onclick=function(){
       /*          timer=setInterval(function(){
                     //获取box1的原来的left值
@@ -45,6 +62,11 @@
             };
             btn02.onclick=function(){
                 move(box,"width",0,10);
+            };
+            btn03.onclick=function(){
+                move(box2,"left",800,30,function(){
+                    move(box2,"top",500,10);
+                });
             }
         };
         // var timer;
@@ -109,8 +131,13 @@
 </body>
 <button id="btn01">点击后向左移动</button>
 <button id="btn02">点击后向右移动</button>
+<button id="btn03">点击后向左移动</button>
 <br/>   <br/>
 <div id="box">
 
 </div>
+<div id="box2">
+
+</div>
+<div id="border"></div>
 </html>
