@@ -33,6 +33,14 @@ DOM事件流包括哪三个阶段？
     //试题3
     const {a='a',b,c:ccc}={a:'aa',b:'bb',c:'cc'};
     //console.log(a + b + c);//运行出现错误   c变量解构赋值不成功
+    //正确的输出做法应该是：console.log(a + b + ccc);
+    /*
+    * 因为如果变量名与属性名不一致，必须写成下面这样
+    *   let { foo: baz } = { foo: 'aaa', bar: 'bbb' };
+        baz // "aaa"
+        let obj = { first: 'hello', last: 'world' };
+        let { first: f, last: l } = obj;
+    * */
 </script>
 
 <!--试题4

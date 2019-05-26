@@ -62,6 +62,151 @@
         var str3='{"name":"孙悟空","age":"18","gender":"男"}';
         console.log(eval("("+str3+")"));
 
+
+        var o = {
+            a: 2,
+            m: function(){
+                return this.a + 1;
+            }
+        };
+        console.log(o.m()); // 3
+        var p = Object.create(o);
+        p.a = 4; // 创建 p 的自身属性 'a'
+        console.log(p.m()); // 5
+
+
+        var tmp = new Date();
+
+        function f() {
+            console.log(tmp);// undefined
+            if (false) {
+                var tmp = 'hello world';
+            }
+        }
+        f(); // undefined
+        console.log(tmp);
+
+        function f1() {
+            var n = 5;
+            if (true) {
+                var n = 10;
+            }
+            console.log(n); // 10    如果把n改变为let的定义的话，则输出的是5
+        }
+        f1();
+
+
+    /*    (function () {
+            if (false) {
+                // 重复声明一次函数f
+                function f() { console.log('I am inside!'); }
+            }
+            /!*
+            * ES6 规定，块级作用域之中，函数声明语句的行为类似于let，在块级作用域之外不可引用。
+            * *!/
+            f();  //这里会报错
+        }());*/
+
+
+        /*// 浏览器的 ES6 环境
+        function f() { console.log('I am outside!'); }
+
+        (function () {
+            if (false) {
+                // 重复声明一次函数f
+                function f() { console.log('I am inside!'); }
+            }
+
+            f();
+        }());*/
+
+  /*      const foo;  //只声明不赋值就会报错
+        console.log(foo);*/
+
+        const a = [];
+        a.push('Hello'); // 可执行
+        a.push('111'); // 可执行
+        console.log(a);
+        /*      a.length = 0;    // 可执行
+              a = ['Dave'];    // 报错*/
+
+        y = 2;
+        console.log(y);
+
+
+        //let [x = 5] = [undefined];
+        //x // 1
+        //console.log(x);
+
+   /*     let [x = 1] = [null];
+        function aaa(){
+            console.log(x);
+        }
+        aaa();*/
+
+        let x;
+        if ([1][0] === undefined) {
+            x = f();
+        } else {
+            x = [1][0];
+        }
+        console.log(x);
+
+
+        const { log } = console;
+        log('hello'); // hello
+
+        /*
+        * 注意，这时P是模式，不是变量，因此不会被赋值。如果P也要作为变量赋值，可以写成下面这样。
+        * */
+        let obj1 = {
+            P: [
+                'Hello',
+                { Y: 'World' }
+            ]
+        };
+
+        let { P, P: [x1, { Y }] } = obj1;
+        console.log(P); //["Hello", {y: "World"}]   x="Hello"   y="World"
+
+
+        const node = {
+            loc: {
+                start: {
+                    line: 1,
+                    column: 5
+                }
+            }
+        };
+
+        /*
+        * 以下代码有三次解构赋值，分别是对loc、start、line三个属性的解构赋值。
+        * 注意，最后一次对line属性的解构赋值之中，
+        * 只有line是变量，loc和start都是模式，不是变量。
+        * */
+        let { loc, loc: { start }, loc: { start: { line }} } = node;
+        console.log( loc);
+        console.log( start);
+        console.log("line=" + line);
+
+
+        let obj2 = {};
+        let arr2 = [];
+
+        ({ foo1: obj2.prop, bar1: arr2[0] } = { foo1: 123, bar1: true });
+        console.log(arr2);
+
+
+        var {x0: y0 = 3} = {};
+        console.log(y0);
+
+        let {length : len} = 'hello';
+        console.log(len); //5
+
+        let {toString: ss} = 123;
+        console.log(ss);
+
+
     </script>
 </head>
 <body>
