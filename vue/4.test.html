@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var a=1;
+    function fun1(){
+        var b=2;
+        function fun2(){
+            var c=3;
+            console.log(c);
+            console.log(b);
+            console.log(a);
+            console.log(window.d);
+        }
+        fun2();
+    }
+    fun1();
+</script>
+
+<div style="position: absolute;width: 100px;height: 100px;background-color: red;">
+    <div style="position: fixed;width: 200px;height: 200px;background-color: #72ffe5;" >
+        <div style="position: absolute;width: 400px;height: 400px;background-color: #5863ff;"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的双向数据绑定(复杂)</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+</div>
+</body>
+<script>
+/*
+    var vm = new Vue({
+        data: {
+            obj: {
+                a: 1
+            }
+        },
+        created: function () {
+            console.log(this.obj);
+        }
+    });
+*/
+
+    var Book = {};
+    var name = '';
+    Object.defineProperty(Book, 'name', {
+        set: function (value) {
+            name = value;
+            console.log('你取了一个书名叫做' + value);
+        },
+        get: function () {
+            return '《' + name + '》'
+        }
+    });
+
+    Book.name = 'vue权威指南';  // 你取了一个书名叫做vue权威指南
+    console.log(Book.name);  // 《vue权威指南》
+    console.log(Book);  //
+</script>
+</html>

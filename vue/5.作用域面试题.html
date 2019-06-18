@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域面试题</title>
+    <style>
+        .test p:only-of-type{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<script>
+    //1.作用域面试题（1）
+    var x=10;
+    function fn(){
+        console.log(x);
+    }
+    function show(f){
+        var x=20;
+        f();
+    }
+    show(fn); //10
+
+    //2.作用域面试题（2）
+    var fn=function(){
+        console.log(fn);
+    }
+    fn();
+    var obj={
+        fn2:function(){
+            //console.log(fn2);   //会报错
+            console.log(this.fn2)   //这样调用不会报错
+        }
+    }
+    obj.fn2();
+
+    /*
+    *   执行上下文
+    * */
+    //整个过程中产生了几个执行上下文？   5
+    /*  以下例子的输出结果
+    * gb：undefined
+      fb：1
+      fb：2
+      fb：3
+      fe：3
+      fe：2
+      fe：1
+      ge：1
+    * */
+    console.log('gb：'+i);
+    var i=1;
+    foo(1);
+    function foo(i){
+        if (i==4){
+            return
+        }
+        console.log('fb：' + i);
+        foo(i+1);  //递归调用：在函数内部调用自己
+        console.log('fe：' + i);
+    }
+    console.log('ge：' + i);
+
+    /*
+    * 面试题：  先执行变量提升，再执行函数提升
+    * */
+    //测试题1
+    function a(){}
+    var a;
+    console.log(typeof a);  //function
+    //测试题2：
+    if(!(b in window)){
+        var b=1;
+    }
+    console.log(b);  //undefined
+    //测试3：（易错）
+    var c=1
+    function c(c){
+        console.log(c);
+        var c=3
+    }
+    //c(2);   //这里会报错   -->c is not a function
+
+    function fun11(){
+        var a=2;
+        function fn2(){
+            console.log(a);  //执行函数定义就会产生闭包（不用调用内部函数）
+        }
+    }
+    fun11();
+
+    function fun5(){
+        var a=2;
+        var fn6=function (){
+            console.log(a);  //执行函数定义就会产生闭包（不用调用内部函数）
+        }
+    }
+    var obj2=fun5();
+
+/*
+1、内存溢出
+    一种创新运行出现的错误
+    当程序运行需要的内存超过了剩余的内存时，就抛出内存溢出的错误
+* */
+/*    var obj={}
+    for(var i=0;i<10000;i++){
+        obj[i]=new Array(10000);
+        console.log('----');
+    }*/
+
+/*
+* 2.内存泄漏
+*   占用的内存没有及时释放
+*   内存泄漏积累多了就容易导致内存溢出
+*   常见的内存泄漏：
+*       意外的全局变量
+*       没有及时清理的计时器或回调函数
+*       闭包
+* */
+
+    //2. 内存泄漏
+        //意外的全局变量
+    function fn(){
+        a=3;
+        console.log(a);
+    }
+    fn();
+
+    //没有及时清理的计时器或回调函数
+    var intervalId=setInterval(function(){  //启动循环定时器后不清理
+        console.log('---');
+    },1000)
+    //clearInterval(intervalId);
+
+    //产生闭包
+    function fun7(){
+        var a=2;
+        var fn8=function (){
+            console.log(a);  //执行函数定义就会产生闭包（不用调用内部函数）
+        }
+        return fn8;
+    }
+    var obj3=fun7();
+    //obj3没有释放   应该-->obj3=null
+
+    //代码片段一  p36
+    var name="The Window";
+    var object={
+        name:"My Object",
+        getNameFunc:function(){
+            return function(){
+                return this.name;
+            }
+        }
+    }
+    console.log(object.getNameFunc()());   //  the Window
+
+    //代码片段二  p36
+    var name2="The Window";
+    var object2={
+        name2:"My Object",
+        getNameFunc:function(){
+            var that=this;  //产生了闭包
+            return function(){
+                return that.name2;
+            }
+        }
+    }
+    console.log(object2.getNameFunc()());   //  My Object
+
+    function fun(n,o){
+        console.log(o);
+        return{
+            fun:function(m){
+                return fun(m,n);
+            }
+        }
+    }
+    var a=fun(0) ;a.fun(1); a.fun(2); a.fun(3); //undefined, 0,0,0
+    var b=fun(0).fun(1).fun(2).fun(3);  //undefined ,0, 1 2
+    var c=fun(0).fun(1);  c.fun(2); c.fun(3);  //undefined , 0 1 1
+
+</script>
+<input type="date" />
+<input type="color" />
+<input type="tel" />
+<div class="test">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <p>5</p>
+</div>
+
+</body>
+</html>
